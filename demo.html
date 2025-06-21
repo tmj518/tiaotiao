@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- SEO优化 -->
+  <title>像素跳跃者 - 免费在线跳跃游戏 | 挑战你的反应速度</title>
+  <meta name="description" content="像素跳跃者是一款简单有趣的在线跳跃游戏，挑战你的反应速度和操作技巧。免费游戏，无需下载，立即开始挑战！">
+  <meta name="keywords" content="跳跃游戏, 像素游戏, 在线游戏, 免费游戏, 反应游戏, 休闲游戏, 手机游戏, 网页游戏">
+  <meta name="author" content="像素跳跃者">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="像素跳跃者 - 免费在线跳跃游戏">
+  <meta property="og:description" content="挑战你的反应速度，在像素世界中跳跃冒险！">
+  <meta property="og:image" content="https://picsum.photos/id/237/1200/630">
+  <meta property="og:url" content="https://pixel-jumper.pages.dev">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="像素跳跃者 - 免费在线跳跃游戏">
+  <meta name="twitter:description" content="挑战你的反应速度，在像素世界中跳跃冒险！">
+  
+  <!-- 预加载关键资源 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    
+    #gameContainer {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #gameCanvas {
+      border: 3px solid #333;
+      background: #87CEEB;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      max-width: 100%;
+      max-height: 80vh;
+    }
+    
+    #ui {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      font-size: 16px;
+      z-index: 10;
+    }
+    
+    #score {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    
+    #highScore {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    #gameOver {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+      z-index: 20;
+    }
+    
+    #gameOver h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #ff6b6b;
+    }
+    
+    #gameOver p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    #restartBtn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.3s;
+    }
+    
+    #restartBtn:hover {
+      background: #45a049;
+    }
+    
+    #startScreen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      z-index: 30;
+    }
+    
+    #startScreen h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+    
+    #startScreen p {
+      font-size: 14px;
+      margin-bottom: 30px;
+      opacity: 0.8;
+    }
+    
+    #startBtn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.3s;
+    }
+    
+    #startBtn:hover {
+      background: #45a049;
+    }
+    
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+    
+    @media (max-width: 768px) {
+      #ui {
+        font-size: 14px;
+      }
+      
+      #score {
+        font-size: 18px;
+      }
+      
+      #gameOver h2 {
+        font-size: 20px;
+      }
+      
+      #startScreen h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+    
+    <div id="ui">
+      <div id="score">分数: 0</div>
+      <div id="highScore">最高分: 0</div>
+    </div>
+    
+    <div id="startScreen">
+      <h1>像素跳跃者</h1>
+      <p>点击屏幕或按空格键跳跃<br>避开障碍物，挑战最高分！</p>
+      <button id="startBtn">开始游戏</button>
+    </div>
+    
+    <div id="gameOver">
+      <h2>游戏结束</h2>
+      <p id="finalScore">你的分数: 0</p>
+      <button id="restartBtn">重新开始</button>
+    </div>
+    
+    <div class="controls">
+      点击屏幕或按空格键跳跃
+    </div>
+  </div>
+
+  <script>
+    // 游戏配置
+    const config = {
+      canvas: document.getElementById('gameCanvas'),
+      ctx: null,
+      width: 800,
+      height: 400,
+      gravity: 0.8,
+      jumpPower: -18,
+      initialGameSpeed: 3,   // 初始游戏速度
+      maxGameSpeed: 8,       // 最大游戏速度
+      speedIncrement: 0.001, // 速度增量
+      obstacleWidth: 50,
+      maxObstacleHeight: 120,
+      minObstacleHeight: 40,
+      minObstacleSpacing: 350,
+      playerSize: 30
+    };
+    
+    // 游戏状态
+    let gameState = {
+      isPlaying: false,
+      score: 0,
+      highScore: localStorage.getItem('pixelJumperHighScore') || 0,
+      gameSpeed: config.initialGameSpeed, // 当前游戏速度
+      player: {
+        x: 100,
+        y: config.height - config.playerSize - 10,
+        velocityY: 0,
+        jumpsLeft: 2
+      },
+      obstacles: [],
+      animationId: null
+    };
+    
+    // 初始化
+    function init() {
+      config.ctx = config.canvas.getContext('2d');
+      updateHighScore();
+      setupEventListeners();
+    }
+    
+    // 设置事件监听
+    function setupEventListeners() {
+      document.getElementById('startBtn').addEventListener('click', startGame);
+      document.getElementById('restartBtn').addEventListener('click', restartGame);
+      
+      // 跳跃控制
+      document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          if (gameState.isPlaying) jump();
+        }
+      });
+      
+      config.canvas.addEventListener('click', () => {
+        if (gameState.isPlaying) {
+          jump();
+        }
+      });
+      
+      // 触摸控制（移动端）
+      config.canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (gameState.isPlaying) {
+          jump();
+        }
+      });
+    }
+    
+    // 开始游戏
+    function startGame() {
+      gameState.isPlaying = true;
+      gameState.score = 0;
+      gameState.player.y = config.height - config.playerSize - 10;
+      gameState.player.velocityY = 0;
+      gameState.player.jumpsLeft = 2;
+      gameState.gameSpeed = config.initialGameSpeed; // 重置游戏速度
+      gameState.obstacles = [];
+      
+      document.getElementById('startScreen').style.display = 'none';
+      gameLoop();
+    }
+    
+    // 重新开始游戏
+    function restartGame() {
+      document.getElementById('gameOver').style.display = 'none';
+      startGame();
+    }
+    
+    // 跳跃
+    function jump() {
+      if (gameState.player.jumpsLeft > 0) {
+        gameState.player.velocityY = config.jumpPower;
+        gameState.player.jumpsLeft--;
+      }
+    }
+    
+    // 游戏主循环
+    function gameLoop() {
+      if (!gameState.isPlaying) return;
+      
+      update();
+      render();
+      gameState.animationId = requestAnimationFrame(gameLoop);
+    }
+    
+    // 更新游戏逻辑
+    function update() {
+      // 更新玩家
+      gameState.player.velocityY += config.gravity;
+      gameState.player.y += gameState.player.velocityY;
+      
+      // 地面碰撞检测
+      if (gameState.player.y > config.height - config.playerSize - 10) {
+        gameState.player.y = config.height - config.playerSize - 10;
+        gameState.player.velocityY = 0;
+        gameState.player.jumpsLeft = 2; // 在地面时重置跳跃次数
+      }
+      
+      // 动态调整游戏速度
+      if (gameState.gameSpeed < config.maxGameSpeed) {
+        gameState.gameSpeed += config.speedIncrement;
+      }
+      
+      // 生成障碍物
+      const lastObstacle = gameState.obstacles[gameState.obstacles.length - 1];
+      const canSpawn = !lastObstacle || lastObstacle.x < config.width - config.minObstacleSpacing;
+      
+      if (Math.random() < 0.025 && canSpawn) {
+        const newHeight = Math.floor(Math.random() * (config.maxObstacleHeight - config.minObstacleHeight + 1)) + config.minObstacleHeight;
+        gameState.obstacles.push({
+          x: config.width,
+          y: config.height - newHeight - 10,
+          width: config.obstacleWidth,
+          height: newHeight
+        });
+      }
+      
+      // 更新障碍物
+      gameState.obstacles.forEach((obstacle, index) => {
+        obstacle.x -= gameState.gameSpeed; // 使用动态速度
+        
+        // 移除超出屏幕的障碍物
+        if (obstacle.x + obstacle.width < 0) {
+          gameState.obstacles.splice(index, 1);
+          gameState.score++;
+          updateScore();
+        }
+        
+        // 碰撞检测
+        if (checkCollision(gameState.player, obstacle)) {
+          gameOver();
+        }
+      });
+    }
+    
+    // 碰撞检测
+    function checkCollision(player, obstacle) {
+      return player.x < obstacle.x + obstacle.width &&
+             player.x + config.playerSize > obstacle.x &&
+             player.y < obstacle.y + obstacle.height &&
+             player.y + config.playerSize > obstacle.y;
+    }
+    
+    // 渲染游戏画面
+    function render() {
+      // 清空画布
+      config.ctx.clearRect(0, 0, config.width, config.height);
+      
+      // 绘制背景
+      config.ctx.fillStyle = '#87CEEB';
+      config.ctx.fillRect(0, 0, config.width, config.height);
+      
+      // 绘制地面
+      config.ctx.fillStyle = '#8B4513';
+      config.ctx.fillRect(0, config.height - 10, config.width, 10);
+      
+      // 绘制玩家
+      config.ctx.fillStyle = '#FF6B6B';
+      config.ctx.fillRect(
+        gameState.player.x,
+        gameState.player.y,
+        config.playerSize,
+        config.playerSize
+      );
+      
+      // 绘制障碍物
+      config.ctx.fillStyle = '#4A4A4A';
+      gameState.obstacles.forEach(obstacle => {
+        config.ctx.fillRect(
+          obstacle.x,
+          obstacle.y,
+          obstacle.width,
+          obstacle.height
+        );
+      });
+      
+      // 绘制分数
+      config.ctx.fillStyle = '#333';
+      config.ctx.font = '20px "Press Start 2P"';
+      config.ctx.fillText(`分数: ${gameState.score}`, 20, 40);
+    }
+    
+    // 更新分数显示
+    function updateScore() {
+      document.getElementById('score').textContent = `分数: ${gameState.score}`;
+    }
+    
+    // 更新最高分
+    function updateHighScore() {
+      document.getElementById('highScore').textContent = `最高分: ${gameState.highScore}`;
+    }
+    
+    // 游戏结束
+    function gameOver() {
+      gameState.isPlaying = false;
+      cancelAnimationFrame(gameState.animationId);
+      
+      // 更新最高分
+      if (gameState.score > gameState.highScore) {
+        gameState.highScore = gameState.score;
+        localStorage.setItem('pixelJumperHighScore', gameState.highScore);
+        updateHighScore();
+      }
+      
+      // 显示游戏结束界面
+      document.getElementById('finalScore').textContent = `你的分数: ${gameState.score}`;
+      document.getElementById('gameOver').style.display = 'block';
+    }
+    
+    // 页面加载完成后初始化
+    window.addEventListener('load', init);
+    
+    // 防止页面滚动（移动端）
+    document.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+    }, { passive: false });
+  </script>
+</body>
+</html> 
