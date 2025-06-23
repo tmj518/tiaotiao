@@ -1,465 +1,677 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K9M7BKNKWJ"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-K9M7BKNKWJ'); </script>
-  
-  <!-- SEO优化 -->
-  <title>像素跳跃者 - 免费在线跳跃游戏 | 挑战你的反应速度</title>
-  <meta name="description" content="像素跳跃者是一款简单有趣的在线跳跃游戏，挑战你的反应速度和操作技巧。免费游戏，无需下载，立即开始挑战！">
-  <meta name="keywords" content="跳跃游戏, 像素游戏, 在线游戏, 免费游戏, 反应游戏, 休闲游戏, 手机游戏, 网页游戏">
-  <meta name="author" content="像素跳跃者">
-  <meta name="robots" content="index, follow">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="像素跳跃者 - 免费在线跳跃游戏">
-  <meta property="og:description" content="挑战你的反应速度，在像素世界中跳跃冒险！">
-  <meta property="og:image" content="https://picsum.photos/id/237/1200/630">
-  <meta property="og:url" content="https://pixel-jumper.pages.dev">
-  <meta property="og:type" content="website">
-  
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="像素跳跃者 - 免费在线跳跃游戏">
-  <meta name="twitter:description" content="挑战你的反应速度，在像素世界中跳跃冒险！">
-  
-  <!-- 预加载关键资源 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Survivors - Play Online Now</title>
+    <meta name="description" content="Survive endless waves of monsters in this action-packed multiplayer game. Battle alone or with friends and prove your survival skills!">
+    <meta name="keywords" content="Monster Survivors, online game, survival game, multiplayer, action game">
+    <meta name="author" content="MonsterSurvivors.com">
     
-    body {
-      font-family: 'Press Start 2P', cursive;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      overflow: hidden;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-    }
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.monstersurvivors.com">
     
-    #gameContainer {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Monster Survivors - Play Online Now">
+    <meta property="og:description" content="Survive endless waves of monsters in this action-packed multiplayer game. Battle alone or with friends and prove your survival skills!">
+    <meta property="og:image" content="https://picsum.photos/1200/630?random=monstersurvivors">
+    <meta property="og:url" content="https://www.monstersurvivors.com">
+    <meta property="og:type" content="website">
     
-    #gameCanvas {
-      border: 3px solid #333;
-      background: #87CEEB;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      max-width: 100%;
-      max-height: 80vh;
-    }
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Monster Survivors - Play Online Now">
+    <meta name="twitter:description" content="Survive endless waves of monsters in this action-packed multiplayer game. Battle alone or with friends and prove your survival skills!">
+    <meta name="twitter:image" content="https://picsum.photos/1200/630?random=monstersurvivors">
     
-    #ui {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-      font-size: 16px;
-      z-index: 10;
-    }
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    #score {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
-    #highScore {
-      font-size: 14px;
-      opacity: 0.8;
-    }
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    #gameOver {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.9);
-      color: white;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      display: none;
-      z-index: 20;
-    }
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0071E3',      // Apple blue
+                        secondary: '#FF3B30',    // Apple red
+                        accent: '#34C759',       // Apple green
+                        neutral: '#8E8E93',      // Apple gray
+                        dark: '#1C1C1E',         // Apple dark gray
+                        light: '#F9F9F9',        // Apple light gray
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     
-    #gameOver h2 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: #ff6b6b;
-    }
-    
-    #gameOver p {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-    
-    #restartBtn {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.3s;
-    }
-    
-    #restartBtn:hover {
-      background: #45a049;
-    }
-    
-    #startScreen {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.9);
-      color: white;
-      padding: 40px;
-      border-radius: 15px;
-      text-align: center;
-      z-index: 30;
-    }
-    
-    #startScreen h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      color: #4CAF50;
-    }
-    
-    #startScreen p {
-      font-size: 14px;
-      margin-bottom: 30px;
-      opacity: 0.8;
-    }
-    
-    #startBtn {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.3s;
-    }
-    
-    #startBtn:hover {
-      background: #45a049;
-    }
-    
-    .controls {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      text-align: center;
-      font-size: 12px;
-      opacity: 0.7;
-    }
-    
-    @media (max-width: 768px) {
-      #ui {
-        font-size: 14px;
-      }
-      
-      #score {
-        font-size: 18px;
-      }
-      
-      #gameOver h2 {
-        font-size: 20px;
-      }
-      
-      #startScreen h1 {
-        font-size: 24px;
-      }
-    }
-  </style>
+    <!-- Custom Styles -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            .game-container {
+                aspect-ratio: 16/9;
+            }
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+                100% { transform: translateY(0px); }
+            }
+        }
+    </style>
 </head>
-<body>
-  <div id="gameContainer">
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
-    
-    <div id="ui">
-      <div id="score">分数: 0</div>
-      <div id="highScore">最高分: 0</div>
-    </div>
-    
-    <div id="startScreen">
-      <h1>像素跳跃者</h1>
-      <p>点击屏幕或按空格键跳跃<br>避开障碍物，挑战最高分！</p>
-      <button id="startBtn">开始游戏</button>
-    </div>
-    
-    <div id="gameOver">
-      <h2>游戏结束</h2>
-      <p id="finalScore">你的分数: 0</p>
-      <button id="restartBtn">重新开始</button>
-    </div>
-    
-    <div class="controls">
-      点击屏幕或按空格键跳跃
-    </div>
-  </div>
+<body class="font-inter bg-light text-dark antialiased">
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-primary text-white p-2 rounded-lg">
+                        <i class="fa fa-gamepad text-xl"></i>
+                    </div>
+                    <a href="#" class="text-xl font-bold text-primary">Monster Survivors</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#game" class="text-dark hover:text-primary transition-colors font-medium">Play Game</a>
+                    <a href="#features" class="text-dark hover:text-primary transition-colors font-medium">Features</a>
+                    <a href="#controls" class="text-dark hover:text-primary transition-colors font-medium">Controls</a>
+                    <a href="#leaderboard" class="text-dark hover:text-primary transition-colors font-medium">Leaderboard</a>
+                    <a href="#community" class="text-dark hover:text-primary transition-colors font-medium">Community</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-dark hover:text-primary">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <nav class="flex flex-col space-y-3">
+                    <a href="#game" class="text-dark hover:text-primary transition-colors font-medium">Play Game</a>
+                    <a href="#features" class="text-dark hover:text-primary transition-colors font-medium">Features</a>
+                    <a href="#controls" class="text-dark hover:text-primary transition-colors font-medium">Controls</a>
+                    <a href="#leaderboard" class="text-dark hover:text-primary transition-colors font-medium">Leaderboard</a>
+                    <a href="#community" class="text-dark hover:text-primary transition-colors font-medium">Community</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-  <script>
-    // 游戏配置
-    const config = {
-      canvas: document.getElementById('gameCanvas'),
-      ctx: null,
-      width: 800,
-      height: 400,
-      gravity: 0.8,
-      jumpPower: -18,
-      initialGameSpeed: 3,   // 初始游戏速度
-      maxGameSpeed: 8,       // 最大游戏速度
-      speedIncrement: 0.001, // 速度增量
-      obstacleWidth: 50,
-      maxObstacleHeight: 120,
-      minObstacleHeight: 40,
-      minObstacleSpacing: 350,
-      playerSize: 30
-    };
-    
-    // 游戏状态
-    let gameState = {
-      isPlaying: false,
-      score: 0,
-      highScore: localStorage.getItem('pixelJumperHighScore') || 0,
-      gameSpeed: config.initialGameSpeed, // 当前游戏速度
-      player: {
-        x: 100,
-        y: config.height - config.playerSize - 10,
-        velocityY: 0,
-        jumpsLeft: 2
-      },
-      obstacles: [],
-      animationId: null
-    };
-    
-    // 初始化
-    function init() {
-      config.ctx = config.canvas.getContext('2d');
-      updateHighScore();
-      setupEventListeners();
-    }
-    
-    // 设置事件监听
-    function setupEventListeners() {
-      document.getElementById('startBtn').addEventListener('click', startGame);
-      document.getElementById('restartBtn').addEventListener('click', restartGame);
-      
-      // 跳跃控制
-      document.addEventListener('keydown', (e) => {
-        if (e.code === 'Space') {
-          e.preventDefault();
-          if (gameState.isPlaying) jump();
-        }
-      });
-      
-      config.canvas.addEventListener('click', () => {
-        if (gameState.isPlaying) {
-          jump();
-        }
-      });
-      
-      // 触摸控制（移动端）
-      config.canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        if (gameState.isPlaying) {
-          jump();
-        }
-      });
-    }
-    
-    // 开始游戏
-    function startGame() {
-      gameState.isPlaying = true;
-      gameState.score = 0;
-      gameState.player.y = config.height - config.playerSize - 10;
-      gameState.player.velocityY = 0;
-      gameState.player.jumpsLeft = 2;
-      gameState.gameSpeed = config.initialGameSpeed; // 重置游戏速度
-      gameState.obstacles = [];
-      
-      document.getElementById('startScreen').style.display = 'none';
-      gameLoop();
-    }
-    
-    // 重新开始游戏
-    function restartGame() {
-      document.getElementById('gameOver').style.display = 'none';
-      startGame();
-    }
-    
-    // 跳跃
-    function jump() {
-      if (gameState.player.jumpsLeft > 0) {
-        gameState.player.velocityY = config.jumpPower;
-        gameState.player.jumpsLeft--;
-      }
-    }
-    
-    // 游戏主循环
-    function gameLoop() {
-      if (!gameState.isPlaying) return;
-      
-      update();
-      render();
-      gameState.animationId = requestAnimationFrame(gameLoop);
-    }
-    
-    // 更新游戏逻辑
-    function update() {
-      // 更新玩家
-      gameState.player.velocityY += config.gravity;
-      gameState.player.y += gameState.player.velocityY;
-      
-      // 地面碰撞检测
-      if (gameState.player.y > config.height - config.playerSize - 10) {
-        gameState.player.y = config.height - config.playerSize - 10;
-        gameState.player.velocityY = 0;
-        gameState.player.jumpsLeft = 2; // 在地面时重置跳跃次数
-      }
-      
-      // 动态调整游戏速度
-      if (gameState.gameSpeed < config.maxGameSpeed) {
-        gameState.gameSpeed += config.speedIncrement;
-      }
-      
-      // 生成障碍物
-      const lastObstacle = gameState.obstacles[gameState.obstacles.length - 1];
-      const canSpawn = !lastObstacle || lastObstacle.x < config.width - config.minObstacleSpacing;
-      
-      if (Math.random() < 0.025 && canSpawn) {
-        const newHeight = Math.floor(Math.random() * (config.maxObstacleHeight - config.minObstacleHeight + 1)) + config.minObstacleHeight;
-        gameState.obstacles.push({
-          x: config.width,
-          y: config.height - newHeight - 10,
-          width: config.obstacleWidth,
-          height: newHeight
+    <main>
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-br from-primary/5 to-primary/10 py-16 md:py-24 overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0">
+                        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight text-dark mb-4">
+                            Monster <span class="text-primary">Survivors</span>
+                        </h1>
+                        <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-lg">
+                            Battle endless waves of monsters in this action-packed survival game. Prove your skills alone or with friends!
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#game" class="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                                <i class="fa fa-play mr-2"></i> Play Now
+                            </a>
+                            <a href="#features" class="bg-white hover:bg-gray-50 text-primary border border-primary font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
+                                <i class="fa fa-info-circle mr-2"></i> Learn More
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="relative w-full max-w-md">
+                            <div class="absolute -inset-4 bg-primary/20 rounded-2xl blur-lg animate-float"></div>
+                            <img src="https://picsum.photos/600/400?random=monstersurvivors" alt="Monster Survivors Gameplay" class="relative z-10 rounded-xl shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="text-3xl font-bold text-primary mb-2">10M+</div>
+                        <div class="text-gray-600">Players</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="text-3xl font-bold text-secondary mb-2">50+</div>
+                        <div class="text-gray-600">Monsters</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="text-3xl font-bold text-accent mb-2">20+</div>
+                        <div class="text-gray-600">Weapons</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="text-3xl font-bold text-neutral mb-2">10K+</div>
+                        <div class="text-gray-600">Daily Active</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Decorative Elements -->
+            <div class="absolute top-20 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 left-10 w-60 h-60 bg-primary/10 rounded-full blur-3xl"></div>
+        </section>
+
+        <!-- Game Section -->
+        <section id="game" class="py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">Play <span class="text-primary">Monster Survivors</span></h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Survive as long as possible against endless waves of monsters. Upgrade your weapons, unlock new abilities, and become the ultimate survivor!</p>
+                </div>
+                
+                <div class="bg-dark rounded-2xl shadow-2xl overflow-hidden">
+                    <div class="game-container relative w-full">
+                        <iframe 
+                            src="https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html" 
+                            frameborder="0" 
+                            allowfullscreen
+                            class="absolute inset-0 w-full h-full"
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+                    
+                    <!-- Game Controls -->
+                    <div class="bg-dark/80 backdrop-blur-md p-4 flex flex-wrap justify-center gap-4">
+                        <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg flex items-center">
+                            <i class="fa fa-expand mr-2"></i> Fullscreen
+                        </button>
+                        <button class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg flex items-center">
+                            <i class="fa fa-pause mr-2"></i> Pause
+                        </button>
+                        <button class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg flex items-center">
+                            <i class="fa fa-volume-up mr-2"></i> Sound
+                        </button>
+                        <button class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg flex items-center">
+                            <i class="fa fa-refresh mr-2"></i> Restart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Features -->
+        <section id="features" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">Game <span class="text-primary">Features</span></h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Discover all the exciting features that make Monster Survivors an unforgettable gaming experience.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="bg-primary/10 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fa fa-users text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Multiplayer Mode</h3>
+                        <p class="text-gray-600">Team up with friends or play with other survivors from around the world in cooperative multiplayer mode.</p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="bg-secondary/10 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fa fa-bolt text-secondary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Powerful Weapons</h3>
+                        <p class="text-gray-600">Choose from a variety of weapons, from basic guns to powerful explosives, and upgrade them as you progress.</p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="bg-accent/10 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fa fa-rocket text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Endless Waves</h3>
+                        <p class="text-gray-600">Face increasingly challenging waves of monsters as you test your survival skills to the limit.</p>
+                    </div>
+                    
+                    <!-- Feature 4 -->
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="bg-primary/10 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fa fa-shield text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Upgradable Skills</h3>
+                        <p class="text-gray-600">Unlock and upgrade special skills to enhance your character's abilities and survive longer.</p>
+                    </div>
+                    
+                    <!-- Feature 5 -->
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="bg-secondary/10 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fa fa-map text-secondary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Multiple Maps</h3>
+                        <p class="text-gray-600">Explore different environments with unique layouts, obstacles, and strategic advantages.</p>
+                    </div>
+                    
+                    <!-- Feature 6 -->
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="bg-accent/10 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fa fa-trophy text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Leaderboards</h3>
+                        <p class="text-gray-600">Compete with players worldwide and climb the ranks to become the top survivor.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Play -->
+        <section id="controls" class="py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">Game <span class="text-primary">Controls</span></h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Learn how to navigate the game and use your skills effectively to survive the monster onslaught.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="https://picsum.photos/600/400?random=controls" alt="Game Controls" class="rounded-xl shadow-xl w-full">
+                    </div>
+                    
+                    <div>
+                        <div class="space-y-6">
+                            <div class="flex">
+                                <div class="bg-primary/10 rounded-lg p-3 mr-4">
+                                    <span class="font-bold text-primary">WASD</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Movement</h3>
+                                    <p class="text-gray-600">Use the WASD keys to move your character in all directions.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="bg-primary/10 rounded-lg p-3 mr-4">
+                                    <span class="font-bold text-primary">Mouse</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Aim & Shoot</h3>
+                                    <p class="text-gray-600">Use your mouse to aim and left-click to shoot your current weapon.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="bg-primary/10 rounded-lg p-3 mr-4">
+                                    <span class="font-bold text-primary">1-5</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Weapon Selection</h3>
+                                    <p class="text-gray-600">Press number keys 1-5 to quickly switch between your equipped weapons.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="bg-primary/10 rounded-lg p-3 mr-4">
+                                    <span class="font-bold text-primary">R</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Reload</h3>
+                                    <p class="text-gray-600">Press R to reload your current weapon when it's out of ammo.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="bg-primary/10 rounded-lg p-3 mr-4">
+                                    <span class="font-bold text-primary">Space</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Jump</h3>
+                                    <p class="text-gray-600">Press the Spacebar to jump over obstacles or gain tactical advantage.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="bg-primary/10 rounded-lg p-3 mr-4">
+                                    <span class="font-bold text-primary">E</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Interact</h3>
+                                    <p class="text-gray-600">Press E to interact with objects, pick up weapons, or open doors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard -->
+        <section id="leaderboard" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">Top <span class="text-primary">Survivors</span></h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">See how you rank among the best players in Monster Survivors and challenge them for the top spot.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+                    <div class="bg-primary text-white p-4">
+                        <h3 class="font-bold text-xl">Global Leaderboard</h3>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-50 text-left">
+                                    <th class="px-6 py-3 text-sm font-semibold text-gray-600">Rank</th>
+                                    <th class="px-6 py-3 text-sm font-semibold text-gray-600">Player</th>
+                                    <th class="px-6 py-3 text-sm font-semibold text-gray-600">Score</th>
+                                    <th class="px-6 py-3 text-sm font-semibold text-gray-600">Kills</th>
+                                    <th class="px-6 py-3 text-sm font-semibold text-gray-600">Survived</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4 font-bold text-primary">1</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/32/32?random=player1" alt="Player 1" class="w-8 h-8 rounded-full mr-3">
+                                            <span>SurvivorX</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-bold">98,765</td>
+                                    <td class="px-6 py-4">1,245</td>
+                                    <td class="px-6 py-4">45:32</td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4 font-bold text-secondary">2</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/32/32?random=player2" alt="Player 2" class="w-8 h-8 rounded-full mr-3">
+                                            <span>MonsterSlayer</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-bold">94,321</td>
+                                    <td class="px-6 py-4">1,187</td>
+                                    <td class="px-6 py-4">43:15</td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4 font-bold text-accent">3</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/32/32?random=player3" alt="Player 3" class="w-8 h-8 rounded-full mr-3">
+                                            <span>ShadowHunter</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-bold">89,542</td>
+                                    <td class="px-6 py-4">1,092</td>
+                                    <td class="px-6 py-4">41:47</td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4">4</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/32/32?random=player4" alt="Player 4" class="w-8 h-8 rounded-full mr-3">
+                                            <span>NightStalker</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">85,763</td>
+                                    <td class="px-6 py-4">1,043</td>
+                                    <td class="px-6 py-4">39:58</td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4">5</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/32/32?random=player5" alt="Player 5" class="w-8 h-8 rounded-full mr-3">
+                                            <span>BulletMaster</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">82,194</td>
+                                    <td class="px-6 py-4">987</td>
+                                    <td class="px-6 py-4">38:24</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="p-4 bg-gray-50 text-center">
+                        <button class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-all">
+                            View Full Leaderboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section id="community" class="py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">Join Our <span class="text-primary">Community</span></h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Connect with other players, share your strategies, and stay updated with the latest news and updates.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-discord text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-xl">Discord Server</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Join our Discord community to chat with other players, participate in events, and get exclusive updates.</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-medium flex items-center">
+                            Join Now <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-youtube-play text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-xl">YouTube Channel</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Watch gameplay videos, tutorials, and developer updates on our official YouTube channel.</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-medium flex items-center">
+                            Subscribe <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-400 text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-twitter text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-xl">Twitter</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Follow us on Twitter for the latest news, patch notes, and community highlights.</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-medium flex items-center">
+                            Follow <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="py-16 bg-gradient-to-br from-primary/5 to-primary/10">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">Stay <span class="text-primary">Updated</span></h2>
+                    <p class="text-gray-600 mb-8">Subscribe to our newsletter to receive the latest updates, new features, and exclusive offers.</p>
+                    
+                    <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                        <input type="email" placeholder="Enter your email address" class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                        <button type="submit" class="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all">
+                            Subscribe
+                        </button>
+                    </form>
+                    
+                    <p class="text-gray-500 text-sm mt-4">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="bg-primary text-white p-2 rounded-lg">
+                            <i class="fa fa-gamepad text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">Monster Survivors</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Survive endless waves of monsters in this action-packed multiplayer game.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#game" class="text-gray-400 hover:text-white transition-colors">Play Game</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#controls" class="text-gray-400 hover:text-white transition-colors">Controls</a></li>
+                        <li><a href="#leaderboard" class="text-gray-400 hover:text-white transition-colors">Leaderboard</a></li>
+                        <li><a href="#community" class="text-gray-400 hover:text-white transition-colors">Community</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bug Reports</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Download App</h3>
+                    <p class="text-gray-400 mb-4">Get the Monster Survivors mobile app for a better gaming experience.</p>
+                    <div class="space-y-3">
+                        <a href="#" class="bg-white/10 hover:bg-white/20 transition-colors rounded-lg p-3 flex items-center">
+                            <i class="fa fa-apple text-2xl mr-3"></i>
+                            <div>
+                                <div class="text-xs">Download on the</div>
+                                <div class="font-bold">App Store</div>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-white/10 hover:bg-white/20 transition-colors rounded-lg p-3 flex items-center">
+                            <i class="fa fa-android text-2xl mr-3"></i>
+                            <div>
+                                <div class="text-xs">Get it on</div>
+                                <div class="font-bold">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 Monster Survivors. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
         });
-      }
-      
-      // 更新障碍物
-      gameState.obstacles.forEach((obstacle, index) => {
-        obstacle.x -= gameState.gameSpeed; // 使用动态速度
         
-        // 移除超出屏幕的障碍物
-        if (obstacle.x + obstacle.width < 0) {
-          gameState.obstacles.splice(index, 1);
-          gameState.score++;
-          updateScore();
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                    
+                    // Scroll to target
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Sticky header effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.add('py-4');
+                header.classList.remove('py-2');
+            }
+        });
+        
+        // Game container resize
+        function resizeGameContainer() {
+            const container = document.querySelector('.game-container');
+            if (container) {
+                const width = container.offsetWidth;
+                container.style.height = `${width * 9 / 16}px`;
+            }
         }
         
-        // 碰撞检测
-        if (checkCollision(gameState.player, obstacle)) {
-          gameOver();
-        }
-      });
-    }
-    
-    // 碰撞检测
-    function checkCollision(player, obstacle) {
-      return player.x < obstacle.x + obstacle.width &&
-             player.x + config.playerSize > obstacle.x &&
-             player.y < obstacle.y + obstacle.height &&
-             player.y + config.playerSize > obstacle.y;
-    }
-    
-    // 渲染游戏画面
-    function render() {
-      // 清空画布
-      config.ctx.clearRect(0, 0, config.width, config.height);
-      
-      // 绘制背景
-      config.ctx.fillStyle = '#87CEEB';
-      config.ctx.fillRect(0, 0, config.width, config.height);
-      
-      // 绘制地面
-      config.ctx.fillStyle = '#8B4513';
-      config.ctx.fillRect(0, config.height - 10, config.width, 10);
-      
-      // 绘制玩家
-      config.ctx.fillStyle = '#FF6B6B';
-      config.ctx.fillRect(
-        gameState.player.x,
-        gameState.player.y,
-        config.playerSize,
-        config.playerSize
-      );
-      
-      // 绘制障碍物
-      config.ctx.fillStyle = '#4A4A4A';
-      gameState.obstacles.forEach(obstacle => {
-        config.ctx.fillRect(
-          obstacle.x,
-          obstacle.y,
-          obstacle.width,
-          obstacle.height
-        );
-      });
-      
-      // 绘制分数
-      config.ctx.fillStyle = '#333';
-      config.ctx.font = '20px "Press Start 2P"';
-      config.ctx.fillText(`分数: ${gameState.score}`, 20, 40);
-    }
-    
-    // 更新分数显示
-    function updateScore() {
-      document.getElementById('score').textContent = `分数: ${gameState.score}`;
-    }
-    
-    // 更新最高分
-    function updateHighScore() {
-      document.getElementById('highScore').textContent = `最高分: ${gameState.highScore}`;
-    }
-    
-    // 游戏结束
-    function gameOver() {
-      gameState.isPlaying = false;
-      cancelAnimationFrame(gameState.animationId);
-      
-      // 更新最高分
-      if (gameState.score > gameState.highScore) {
-        gameState.highScore = gameState.score;
-        localStorage.setItem('pixelJumperHighScore', gameState.highScore);
-        updateHighScore();
-      }
-      
-      // 显示游戏结束界面
-      document.getElementById('finalScore').textContent = `你的分数: ${gameState.score}`;
-      document.getElementById('gameOver').style.display = 'block';
-    }
-    
-    // 页面加载完成后初始化
-    window.addEventListener('load', init);
-    
-    // 防止页面滚动（移动端）
-    document.addEventListener('touchmove', (e) => {
-      e.preventDefault();
-    }, { passive: false });
-  </script>
+        // Initialize on load
+        window.addEventListener('load', function() {
+            resizeGameContainer();
+        });
+        
+        // Resize on window resize
+        window.addEventListener('resize', function() {
+            resizeGameContainer();
+        });
+    </script>
 </body>
-</html> 
+</html>
+    
