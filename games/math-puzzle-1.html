@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🧠 Math Puzzle 1 - Boost Your Brain</title>
+  <meta name="description" content="Try Math Puzzle 1 - a simple arithmetic game that challenges your brain with time-limited math questions." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "Math Puzzle 1",
+    "genre": "Puzzle",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Browser",
+    "author": {
+      "@type": "Organization",
+      "name": "ClimbJump Games"
+    },
+    "url": "https://www.climbjump.com/games/math-puzzle-1.html",
+    "description": "A browser-based game where players solve rapid-fire math problems to score high."
+  }
+  </script>
+</head>
+<body>
+  <h1 style="text-align:center;">Math Puzzle 1</h1>
+  <p style="text-align:center;">Solve math problems fast to boost your brain! Click Start to begin.</p>
+
+  <div id="game" style="text-align:center;">
+    <button onclick="startGame()">Start</button>
+    <div id="question"></div>
+    <input id="answer" type="text" />
+    <button onclick="submitAnswer()">Submit</button>
+    <div id="feedback"></div>
+  </div>
+
+  <script>
+    let a, b;
+    function startGame() {
+      a = Math.floor(Math.random()*10);
+      b = Math.floor(Math.random()*10);
+      document.getElementById("question").innerText = `${a} + ${b} = ?`;
+    }
+    function submitAnswer() {
+      const ans = parseInt(document.getElementById("answer").value);
+      const correct = a + b;
+      document.getElementById("feedback").innerText = (ans === correct) ? "✅ Correct!" : "❌ Wrong! Try again.";
+    }
+  </script>
+</body>
+</html>
