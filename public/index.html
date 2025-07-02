@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play a free online brain training memory match game for adults in the UK. British English, GDPR compliant, mobile-friendly. Memory games for seniors UK, cognitive games for adults UK, free online brain games.">
+  <meta name="keywords" content="brain training games, memory games, adults, UK, cognitive games, online, free, brain games uk, memory match">
+  <meta property="og:title" content="Brain Training Memory Game for Adults | UK">
+  <meta property="og:description" content="Challenge your brain with this memory match game designed for adults in the UK. Play online for free!">
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/brain.svg">
+  <meta property="og:locale" content="en_GB">
+  <title>Free Brain Training Memory Game for Adults | Online | UK</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#10B981',
+            accent: '#F59E0B',
+            dark: '#1E293B',
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto { content-visibility: auto; }
+      .game-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Game",
+      "name": "Free Brain Training Memory Game for Adults | Online | UK",
+      "description": "A free online brain training memory match game for adults in the UK.",
+      "genre": "Puzzle, Memory, Brain Training",
+      "inLanguage": "en-GB",
+      "operatingSystem": "All",
+      "applicationCategory": "GameApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this brain training game really free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, this memory match game is 100% free to play online for all UK users." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this game suitable for seniors and adults?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Absolutely! The game is designed for adults and seniors in the UK, with British English and GDPR compliance." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this game work on mobile and desktop?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, the game is fully responsive and works great on both mobile and desktop devices." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data safe and GDPR compliant?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, no personal data is collected. The game is fully GDPR compliant for UK users." }
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div id="game-container" class="min-h-screen flex flex-col items-center justify-center p-4">
+    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-dark mb-4 text-center">Brain Training Memory Game</h1>
+    <p class="mb-6 text-lg text-gray-700 text-center max-w-xl">Sharpen your memory and cognitive skills! Match all pairs as quickly as you can. Designed for adults in the UK. All data is handled in accordance with GDPR.</p>
+    <div id="score-board" class="mb-4 text-xl font-semibold hidden">
+      Moves: <span id="moves">0</span> &nbsp;|&nbsp; Time: <span id="timer">00:00</span>
+    </div>
+    <div class="flex flex-col items-center w-full max-w-md mb-4">
+      <!-- 难度选择 -->
+      <label for="difficulty" class="mb-1 font-medium text-gray-700">Select Difficulty:</label>
+      <select id="difficulty" class="mb-2 px-3 py-2 rounded border border-gray-300 focus:ring-primary focus:border-primary w-full">
+        <option value="easy">Easy (6 pairs)</option>
+        <option value="medium" selected>Medium (8 pairs)</option>
+        <option value="hard">Hard (12 pairs)</option>
+      </select>
+    </div>
+    <div id="game-board" class="grid grid-cols-4 gap-3 max-w-md w-full mb-6"></div>
+    <div class="flex flex-wrap gap-4 justify-center mb-6">
+      <button id="start-btn" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all">Start Game</button>
+      <button id="restart-btn" class="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition-all hidden">Restart</button>
+      <button id="sound-btn" class="px-6 py-3 bg-dark text-white rounded-lg hover:bg-dark/90 transition-all">Sound: On</button>
+      <button id="instructions-btn" class="px-6 py-3 bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-all">How to Play</button>
+    </div>
+    <div id="result-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 text-center">
+        <h2 class="text-2xl font-bold mb-4">Congratulations!</h2>
+        <p class="mb-2">You completed the game in <span id="final-moves">0</span> moves and <span id="final-time">00:00</span>.</p>
+        <div id="best-score" class="mb-2 text-green-700 font-semibold"></div>
+        <button id="close-result" class="px-4 py-2 bg-primary text-white rounded">Play Again</button>
+      </div>
+    </div>
+    <div id="instructions-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+        <h2 class="text-2xl font-bold mb-4">How to Play</h2>
+        <ul class="list-disc pl-5 mb-4 text-gray-700">
+          <li>Click or tap cards to flip and match pairs.</li>
+          <li>Try to complete the game in as few moves and as little time as possible.</li>
+          <li>Game is designed for adults and uses British English.</li>
+          <li>All data is handled in accordance with GDPR.</li>
+        </ul>
+        <button id="close-instructions" class="px-4 py-2 bg-primary text-white rounded">Got it!</button>
+      </div>
+    </div>
+    <!-- 长尾关键词与SEO自然语言描述 -->
+    <section class="max-w-2xl mx-auto mt-8 mb-4 text-gray-600 text-base leading-relaxed">
+      <h2 class="text-lg font-bold mb-2">About This Game</h2>
+      <p>
+        This free online brain training memory game is designed for adults and seniors in the UK. Improve your memory, focus, and cognitive skills with fun, challenging gameplay. Whether you're looking for memory games for seniors UK, cognitive games for adults UK, or just want to enjoy a British English brain game, this site is for you. Play on mobile or desktop, no registration required, and fully GDPR compliant.
+      </p>
+    </section>
+    <!-- FAQ区块 -->
+    <section class="max-w-2xl mx-auto mb-8">
+      <h2 class="text-lg font-bold mb-2">Frequently Asked Questions</h2>
+      <div class="space-y-3">
+        <details class="bg-white rounded shadow p-3">
+          <summary class="font-semibold cursor-pointer">Is this brain training game really free?</summary>
+          <div class="mt-2 text-gray-700">Yes, this memory match game is 100% free to play online for all UK users.</div>
+        </details>
+        <details class="bg-white rounded shadow p-3">
+          <summary class="font-semibold cursor-pointer">Is this game suitable for seniors and adults?</summary>
+          <div class="mt-2 text-gray-700">Absolutely! The game is designed for adults and seniors in the UK, with British English and GDPR compliance.</div>
+        </details>
+        <details class="bg-white rounded shadow p-3">
+          <summary class="font-semibold cursor-pointer">Does this game work on mobile and desktop?</summary>
+          <div class="mt-2 text-gray-700">Yes, the game is fully responsive and works great on both mobile and desktop devices.</div>
+        </details>
+        <details class="bg-white rounded shadow p-3">
+          <summary class="font-semibold cursor-pointer">Is my data safe and GDPR compliant?</summary>
+          <div class="mt-2 text-gray-700">Yes, no personal data is collected. The game is fully GDPR compliant for UK users.</div>
+        </details>
+      </div>
+    </section>
+  </div>
+  <audio id="flip-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae3b2.mp3" preload="auto"></audio>
+  <audio id="match-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae3b2.mp3" preload="auto"></audio>
+  <audio id="win-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae3b2.mp3" preload="auto"></audio>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const board = document.getElementById('game-board');
+      const startBtn = document.getElementById('start-btn');
+      const restartBtn = document.getElementById('restart-btn');
+      const movesDisplay = document.getElementById('moves');
+      const timerDisplay = document.getElementById('timer');
+      const scoreBoard = document.getElementById('score-board');
+      const resultModal = document.getElementById('result-modal');
+      const finalMoves = document.getElementById('final-moves');
+      const finalTime = document.getElementById('final-time');
+      const closeResult = document.getElementById('close-result');
+      const soundBtn = document.getElementById('sound-btn');
+      const flipSound = document.getElementById('flip-sound');
+      const matchSound = document.getElementById('match-sound');
+      const winSound = document.getElementById('win-sound');
+      const instructionsBtn = document.getElementById('instructions-btn');
+      const instructionsModal = document.getElementById('instructions-modal');
+      const closeInstructions = document.getElementById('close-instructions');
+      const difficultySelect = document.getElementById('difficulty');
+      const bestScoreDiv = document.getElementById('best-score');
+      
+      let cards = [];
+      let firstCard = null;
+      let secondCard = null;
+      let lockBoard = false;
+      let moves = 0;
+      let matchedPairs = 0;
+      let timer = 0;
+      let timerInterval = null;
+      let soundEnabled = true;
+      let totalPairs = 8;
+      let cardSymbols = ['🍀','🧠','🎩','🚲','📚','🕰️','🎵','💡','🌈','🦉','🧩','🦄'];
+      let currentDifficulty = 'medium';
+      
+      function getPairsByDifficulty(diff) {
+        if (diff === 'easy') return 6;
+        if (diff === 'hard') return 12;
+        return 8;
+      }
+      function getSymbolsByDifficulty(diff) {
+        const pairs = getPairsByDifficulty(diff);
+        return cardSymbols.slice(0, pairs);
+      }
+      function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+      function createBoard() {
+        const symbols = shuffle([...getSymbolsByDifficulty(currentDifficulty), ...getSymbolsByDifficulty(currentDifficulty)]);
+        board.innerHTML = '';
+        cards = [];
+        symbols.forEach((symbol, idx) => {
+          const card = document.createElement('button');
+          card.className = 'relative aspect-square bg-white rounded-lg shadow-md flex items-center justify-center text-3xl md:text-4xl font-bold cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-primary transition-all';
+          card.setAttribute('data-symbol', symbol);
+          card.setAttribute('aria-label', 'Memory card');
+          card.innerHTML = '<span class="opacity-0">' + symbol + '</span>';
+          card.addEventListener('click', () => flipCard(card));
+          cards.push(card);
+          board.appendChild(card);
+        });
+      }
+      function flipCard(card) {
+        if (lockBoard || card === firstCard || card.classList.contains('matched')) return;
+        if (soundEnabled) flipSound.play();
+        card.querySelector('span').classList.remove('opacity-0');
+        card.classList.add('ring-2','ring-accent');
+        if (!firstCard) {
+          firstCard = card;
+          return;
+        }
+        secondCard = card;
+        moves++;
+        movesDisplay.textContent = moves;
+        lockBoard = true;
+        if (firstCard.getAttribute('data-symbol') === secondCard.getAttribute('data-symbol')) {
+          if (soundEnabled) matchSound.play();
+          firstCard.classList.add('matched','bg-secondary','text-white');
+          secondCard.classList.add('matched','bg-secondary','text-white');
+          matchedPairs++;
+          setTimeout(() => {
+            resetTurn();
+            if (matchedPairs === getPairsByDifficulty(currentDifficulty)) {
+              endGame();
+            }
+          }, 600);
+        } else {
+          setTimeout(() => {
+            firstCard.querySelector('span').classList.add('opacity-0');
+            secondCard.querySelector('span').classList.add('opacity-0');
+            firstCard.classList.remove('ring-2','ring-accent');
+            secondCard.classList.remove('ring-2','ring-accent');
+            resetTurn();
+          }, 900);
+        }
+      }
+      function resetTurn() {
+        [firstCard, secondCard, lockBoard] = [null, null, false];
+      }
+      function getBestKey() {
+        return `best_${currentDifficulty}`;
+      }
+      function getBestScore() {
+        const data = localStorage.getItem(getBestKey());
+        if (!data) return null;
+        try {
+          return JSON.parse(data);
+        } catch { return null; }
+      }
+      function setBestScore(moves, time) {
+        const prev = getBestScore();
+        if (!prev || moves < prev.moves || (moves === prev.moves && time < prev.time)) {
+          localStorage.setItem(getBestKey(), JSON.stringify({ moves, time }));
+        }
+      }
+      function showBestScore() {
+        const best = getBestScore();
+        if (best) {
+          bestScoreDiv.innerHTML = `Best for this difficulty: <span class='font-bold'>${best.moves} moves</span>, <span class='font-bold'>${formatTime(best.time)}</span>`;
+        } else {
+          bestScoreDiv.innerHTML = '';
+        }
+      }
+      function startGame() {
+        moves = 0;
+        matchedPairs = 0;
+        timer = 0;
+        movesDisplay.textContent = '0';
+        timerDisplay.textContent = '00:00';
+        scoreBoard.classList.remove('hidden');
+        startBtn.classList.add('hidden');
+        restartBtn.classList.remove('hidden');
+        totalPairs = getPairsByDifficulty(currentDifficulty);
+        createBoard();
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          timer++;
+          timerDisplay.textContent = formatTime(timer);
+        }, 1000);
+      }
+      function endGame() {
+        clearInterval(timerInterval);
+        finalMoves.textContent = moves;
+        finalTime.textContent = formatTime(timer);
+        setBestScore(moves, timer);
+        showBestScore();
+        if (soundEnabled) winSound.play();
+        setTimeout(() => {
+          resultModal.classList.remove('hidden');
+        }, 600);
+      }
+      function formatTime(sec) {
+        const m = String(Math.floor(sec / 60)).padStart(2, '0');
+        const s = String(sec % 60).padStart(2, '0');
+        return `${m}:${s}`;
+      }
+      startBtn.addEventListener('click', startGame);
+      restartBtn.addEventListener('click', startGame);
+      closeResult.addEventListener('click', () => {
+        resultModal.classList.add('hidden');
+        startGame();
+      });
+      soundBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        soundBtn.textContent = soundEnabled ? 'Sound: On' : 'Sound: Off';
+      });
+      instructionsBtn.addEventListener('click', () => {
+        instructionsModal.classList.remove('hidden');
+      });
+      closeInstructions.addEventListener('click', () => {
+        instructionsModal.classList.add('hidden');
+      });
+      difficultySelect.addEventListener('change', (e) => {
+        currentDifficulty = e.target.value;
+        startBtn.classList.remove('hidden');
+        restartBtn.classList.add('hidden');
+        scoreBoard.classList.add('hidden');
+        board.innerHTML = '';
+        showBestScore();
+      });
+      // 适配移动端
+      function resizeBoard() {
+        if (window.innerWidth < 500) {
+          board.classList.remove('max-w-md');
+          board.classList.add('max-w-xs');
+        } else {
+          board.classList.remove('max-w-xs');
+          board.classList.add('max-w-md');
+        }
+      }
+      window.addEventListener('resize', resizeBoard);
+      resizeBoard();
+      // 初始化显示最佳成绩
+      showBestScore();
+    });
+  </script>
+</body>
+</html> 
