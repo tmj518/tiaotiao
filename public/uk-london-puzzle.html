@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>London Puzzle Games Free - Play Online in UK</title>
+  <meta name="description" content="Play free London puzzle games online – UK HTML5 game with Big Ben, London Eye, Tower Bridge. No download needed!">
+  <meta name="keywords" content="free London puzzle games, UK online arcade games, London Eye, Big Ben, Tower Bridge, UK puzzle game">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="London Puzzle Games Free – UK Game">
+  <meta property="og:description" content="Play free London puzzle games online – UK HTML5 game with Big Ben, London Eye, Tower Bridge. No download needed!">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    .game-container { width:100%; max-width:420px; margin:auto; background:#fff; border-radius:12px; box-shadow:0 10px 25px -5px rgba(0,0,0,0.15); padding:24px 12px 12px 12px; }
+    h1 { text-align:center; color:#1E293B; margin-bottom:12px; }
+    p { text-align:center; color:#374151; margin-bottom:16px; }
+    .btn { padding:12px 28px; font-size:18px; border:none; border-radius:8px; background:#3B82F6; color:#fff; margin:0 8px 8px 0; cursor:pointer; transition:background 0.2s; }
+    .btn:hover { background:#2563eb; }
+    .btn-accent { background:#F59E0B; }
+    .btn-accent:hover { background:#d97706; }
+    .btn-dark { background:#1E293B; }
+    .btn-dark:hover { background:#334155; }
+    #puzzle-canvas { background:#fff; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:block; margin:0 auto 12px auto; }
+    #gdpr-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:1000; }
+    #gdpr-modal { background:#fff; border-radius:10px; padding:32px 20px; max-width:340px; width:100%; text-align:center; box-shadow:0 6px 24px rgba(0,0,0,0.18); }
+    #level-indicator { color:#F59E0B; font-weight:600; margin-bottom:8px; text-align:center; }
+    #message { color:#15803d; font-weight:600; text-align:center; margin-bottom:8px; }
+    @media (max-width:480px) { .game-container { padding:10px 2px; } }
+  </style>
+  <!-- Schema.org 标记 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "London Puzzle Games Free",
+    "description": "Play free London puzzle games online – a UK-themed HTML5 game!",
+    "audience": "UK players",
+    "gamePlatform": "Browser",
+    "keywords": "free London puzzle games, UK online arcade games, London Eye, Big Ben, Tower Bridge"
+  }
+  </script>
+</head>
+<body>
+  <!-- GDPR 合规弹窗 -->
+  <div id="gdpr-modal-bg" style="display:none;">
+    <div id="gdpr-modal">
+      <h2 style="font-size:1.2em;font-weight:bold;margin-bottom:8px;">GDPR Notice</h2>
+      <p style="margin-bottom:16px;">This game collects data for gameplay stats – learn more.</p>
+      <button id="gdpr-accept" class="btn">Accept</button>
+    </div>
+  </div>
+
+  <div class="game-container">
+    <h1>London Landmarks Puzzle</h1>
+    <p>Drag pieces to complete the London landmark!<br>Start your adventure through London, Edinburgh, and Cardiff.</p>
+    <div>
+      <canvas id="puzzle-canvas" width="320" height="320" aria-label="Puzzle game area" tabindex="0"></canvas>
+      <div id="level-indicator"></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;margin-bottom:8px;">
+      <button id="start-btn" class="btn">Start London Adventure</button>
+      <button id="pause-btn" class="btn btn-accent" style="display:none;">Pause Puzzle</button>
+      <button id="sound-btn" class="btn btn-dark">Sound: On</button>
+    </div>
+    <div id="message"></div>
+  </div>
+
+  <audio id="bell-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae5e2.mp3" preload="auto"></audio>
+
+  <script>
+    // GDPR 弹窗控制
+    document.addEventListener('DOMContentLoaded', () => {
+      const gdprModalBg = document.getElementById('gdpr-modal-bg');
+      const gdprAccept = document.getElementById('gdpr-accept');
+      if (!localStorage.getItem('gdprAccepted')) {
+        gdprModalBg.style.display = 'flex';
+      } else {
+        gdprModalBg.style.display = 'none';
+      }
+      gdprAccept.onclick = () => {
+        localStorage.setItem('gdprAccepted', 'yes');
+        gdprModalBg.style.display = 'none';
+      };
+    });
+
+    // 地标SVG（Base64字符串）
+    const LANDMARKS = [
+      {
+        name: "London Eye",
+        city: "London",
+        img: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgdmlld0JveD0iMCAwIDMyMCAzMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTYwIiBjeT0iMTYwIiByPSIxMDAiIHN0cm9rZT0iIzM4N2JiZiIgc3Ryb2tlLXdpZHRoPSIxNSIgZmlsbD0ibm9uZSIvPjxsaW5lIHgxPSIxNjAiIHkxPSIxNiIgeDI9IjE2MCIgeTI9IjMwNCIgc3Ryb2tlPSIjMzg3YmJmIiBzdHJva2Utd2lkdGg9IjgiLz48bGluZSB4MT0iMTYiIHkxPSIxNjAiIHgyPSIzMDQiIHkyPSIxNjAiIHN0cm9rZT0iIzM4N2JiZiIgc3Ryb2tlLXdpZHRoPSI4Ii8+PC9zdmc+"
+      },
+      {
+        name: "Big Ben",
+        city: "London",
+        img: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgdmlld0JveD0iMCAwIDMyMCAzMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3QgeD0iMTIwIiB5PSIxMDAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIxNTAiIHJ4PSIxNSIgZmlsbD0iI2ZmZGV5NSIgc3Ryb2tlPSIjY2M5ODAwIiBzdHJva2Utd2lkdGg9IjgiLz48cmVjdCB4PSIxNCIgeT0iMjUwIiB3aWR0aD0iMjkyIiBoZWlnaHQ9IjEwIiBmaWxsPSIjY2M5ODAwIi8+PGNpcmNsZSBjeD0iMTYwIiBjeT0iMTIwIiByPSIxNSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjY2M5ODAwIi8+PC9zdmc+"
+      },
+      {
+        name: "Tower Bridge",
+        city: "London",
+        img: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgdmlld0JveD0iMCAwIDMyMCAzMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3QgeD0iNjAiIHk9IjE4MCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSI0MCIgZmlsbD0iIzg4Y2RmZiIvPjxsaW5lIHgxPSIxMCIgeTE9IjIyMCIgeDI9IjMwMCIgeTI9IjIyMCIgc3Ryb2tlPSIjM2E2YmZmIiBzdHJva2Utd2lkdGg9IjEwIi8+PHJlY3QgeD0iODAiIHk9IjE0MCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iMjIwIiB5PSIxNDAiIHdpZHRoPSIyMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg=="
+      }
+    ];
+    const LANDMARK_IMAGES = LANDMARKS.map(l => {
+      const img = new window.Image();
+      img.src = l.img;
+      return img;
+    });
+
+    // 拼图主逻辑
+    let currentLevel = 0;
+    let pieces = [];
+    let dragging = null;
+    let offsetX = 0, offsetY = 0;
+    let solved = false;
+    let soundEnabled = true;
+
+    const canvas = document.getElementById('puzzle-canvas');
+    const ctx = canvas.getContext('2d');
+    const startBtn = document.getElementById('start-btn');
+    const pauseBtn = document.getElementById('pause-btn');
+    const soundBtn = document.getElementById('sound-btn');
+    const message = document.getElementById('message');
+    const levelIndicator = document.getElementById('level-indicator');
+    const bellSound = document.getElementById('bell-sound');
+
+    function shuffle(arr) {
+      return arr.map(v => [v, Math.random()]).sort((a, b) => a[1] - b[1]).map(v => v[0]);
+    }
+
+    function drawPieces() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of pieces) {
+        const img = LANDMARK_IMAGES[currentLevel];
+        ctx.save();
+        ctx.globalAlpha = p.solved ? 0.7 : 1;
+        ctx.drawImage(img, p.x, p.y, p.w, p.h);
+        ctx.restore();
+      }
+    }
+
+    function isInsidePiece(x, y, p) {
+      return x >= p.x && x <= p.x + p.w && y >= p.y && y <= p.y + p.h;
+    }
+
+    function checkSolved() {
+      return pieces.every(p => Math.abs(p.x - p.targetX) < 10 && Math.abs(p.y - p.targetY) < 10);
+    }
+
+    function snapPieces() {
+      for (const p of pieces) {
+        if (Math.abs(p.x - p.targetX) < 10 && Math.abs(p.y - p.targetY) < 10) {
+          p.x = p.targetX;
+          p.y = p.targetY;
+          p.solved = true;
+        }
+      }
+    }
+
+    function nextLevel() {
+      currentLevel++;
+      if (currentLevel >= LANDMARKS.length) {
+        message.textContent = "Congratulations! You've completed all UK landmarks!";
+        levelIndicator.textContent = "";
+        startBtn.style.display = '';
+        pauseBtn.style.display = 'none';
+        return;
+      }
+      setupLevel();
+    }
+
+    function setupLevel() {
+      solved = false;
+      message.textContent = "";
+      levelIndicator.textContent = `Level ${currentLevel + 1}: ${LANDMARKS[currentLevel].name} (${LANDMARKS[currentLevel].city})`;
+      pieces = [];
+      for (let i = 0; i < 3; i++) {
+        pieces.push({
+          img: LANDMARKS[currentLevel].img,
+          x: 30 + i * 90 + Math.random() * 40,
+          y: 30 + Math.random() * 120,
+          w: 90,
+          h: 90,
+          targetX: 60 + i * 60,
+          targetY: 110,
+          solved: false
+        });
+      }
+      pieces = shuffle(pieces);
+      drawPieces();
+    }
+
+    function canDrag() {
+      return !solved && !(pauseBtn.textContent === "Resume Puzzle");
+    }
+
+    canvas.addEventListener('mousedown', e => {
+      if (!canDrag()) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left, y = e.clientY - rect.top;
+      for (let i = pieces.length - 1; i >= 0; i--) {
+        if (isInsidePiece(x, y, pieces[i])) {
+          dragging = pieces[i];
+          offsetX = x - dragging.x;
+          offsetY = y - dragging.y;
+          break;
+        }
+      }
+    });
+
+    canvas.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      const rect = canvas.getBoundingClientRect();
+      dragging.x = e.clientX - rect.left - offsetX;
+      dragging.y = e.clientY - rect.top - offsetY;
+      drawPieces();
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      snapPieces();
+      drawPieces();
+      dragging = null;
+      if (checkSolved()) {
+        solved = true;
+        message.textContent = "Well done! Landmark completed!";
+        if (soundEnabled && currentLevel === 0) bellSound.play();
+        setTimeout(nextLevel, 1500);
+      }
+    });
+
+    // 触摸支持
+    canvas.addEventListener('touchstart', e => {
+      if (!canDrag()) return;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const x = touch.clientX - rect.left, y = touch.clientY - rect.top;
+      for (let i = pieces.length - 1; i >= 0; i--) {
+        if (isInsidePiece(x, y, pieces[i])) {
+          dragging = pieces[i];
+          offsetX = x - dragging.x;
+          offsetY = y - dragging.y;
+          break;
+        }
+      }
+    });
+    canvas.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      dragging.x = touch.clientX - rect.left - offsetX;
+      dragging.y = touch.clientY - rect.top - offsetY;
+      drawPieces();
+      e.preventDefault();
+    }, { passive: false });
+    canvas.addEventListener('touchend', () => {
+      if (!dragging) return;
+      snapPieces();
+      drawPieces();
+      dragging = null;
+      if (checkSolved()) {
+        solved = true;
+        message.textContent = "Well done! Landmark completed!";
+        if (soundEnabled && currentLevel === 0) bellSound.play();
+        setTimeout(nextLevel, 1500);
+      }
+    });
+
+    // 控制按钮
+    startBtn.onclick = () => {
+      currentLevel = 0;
+      startBtn.style.display = 'none';
+      pauseBtn.style.display = '';
+      setupLevel();
+    };
+    pauseBtn.onclick = () => {
+      solved = !solved;
+      pauseBtn.textContent = solved ? "Resume Puzzle" : "Pause Puzzle";
+      message.textContent = solved ? "Paused" : "";
+    };
+    soundBtn.onclick = () => {
+      soundEnabled = !soundEnabled;
+      soundBtn.textContent = soundEnabled ? "Sound: On" : "Sound: Off";
+    };
+
+    // 初始状态
+    startBtn.style.display = '';
+    pauseBtn.style.display = 'none';
+    levelIndicator.textContent = "";
+    message.textContent = "";
+    drawPieces();
+  </script>
+</body>
+</html> 
