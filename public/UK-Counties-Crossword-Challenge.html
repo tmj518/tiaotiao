@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UK Counties Crossword Challenge Free – Play Free Online Game in UK</title>
+  <meta name="description" content="Play UK Counties Crossword Challenge Free online! Test your knowledge of British counties with this fun, free crossword puzzle game. No download needed.">
+  <meta name="keywords" content="UK Counties Crossword Challenge Free, British counties crossword, UK puzzle game, free online crossword UK, British geography game">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="UK Counties Crossword Challenge Free – UK Game">
+  <meta property="og:description" content="Play UK Counties Crossword Challenge Free online! Test your knowledge of British counties with this fun, free crossword puzzle game. No download needed.">
+  <!-- Schema.org 标记 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "UK Counties Crossword Challenge Free",
+    "description": "Play UK Counties Crossword Challenge Free online! Test your knowledge of British counties with this fun, free crossword puzzle game.",
+    "audience": "UK players",
+    "gamePlatform": "Browser",
+    "keywords": "UK Counties Crossword Challenge Free, British counties crossword, UK puzzle game"
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#10B981',
+            accent: '#F59E0B',
+            dark: '#1E293B',
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto { content-visibility: auto; }
+      .game-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col items-center justify-center">
+  <!-- GDPR 合规弹窗 -->
+  <div id="gdpr-modal" class="fixed inset-0 flex items-center justify-center z-50 bg-black/50" style="display:flex;">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 text-center shadow-lg">
+      <h2 class="text-xl font-bold mb-2">GDPR Notice</h2>
+      <p class="mb-4">This game collects data for gameplay stats – learn more.</p>
+      <button id="gdpr-accept" class="px-4 py-2 bg-primary text-white rounded" aria-label="Accept GDPR policy">Accept</button>
+    </div>
+  </div>
+
+  <div id="game-container" class="w-full max-w-2xl mx-auto flex flex-col items-center p-4">
+    <h1 class="text-3xl md:text-4xl font-bold text-dark mb-4 text-center">UK Counties Crossword Challenge</h1>
+    <p class="mb-4 text-lg text-gray-700 text-center max-w-xl">Test your knowledge of British counties! Fill in the crossword with the correct county names. Designed for UK puzzle fans.</p>
+    <!-- 游戏画布区 -->
+    <div class="relative w-full flex flex-col items-center">
+      <div id="crossword-board" class="bg-white rounded-lg game-shadow mb-4 p-4 grid grid-cols-8 gap-1"></div>
+      <div id="clues" class="mb-2 text-base font-medium text-accent"></div>
+    </div>
+    <!-- 控制按钮 -->
+    <div class="flex flex-wrap gap-4 mb-4 justify-center">
+      <button id="start-btn" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all" aria-label="Start game">
+        Start Game
+      </button>
+      <button id="pause-btn" class="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition-all hidden" aria-label="Pause game">
+        Pause
+      </button>
+      <button id="sound-btn" class="px-6 py-3 bg-dark text-white rounded-lg hover:bg-dark/90 transition-all" aria-label="Toggle sound">
+        Sound: On
+      </button>
+    </div>
+    <div id="message" class="mb-2 text-green-700 font-semibold"></div>
+  </div>
+
+  <!-- 音效资源示例（可替换） -->
+  <audio id="bell-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae5e2.mp3" preload="auto"></audio>
+
+  <!-- 游戏玩法骨架：英国郡县填字游戏（极简示例） -->
+  <script>
+    // GDPR 弹窗控制
+    document.addEventListener('DOMContentLoaded', () => {
+      const gdprModal = document.getElementById('gdpr-modal');
+      const gdprAccept = document.getElementById('gdpr-accept');
+      if (!localStorage.getItem('gdprAccepted')) {
+        gdprModal.style.display = 'flex';
+      } else {
+        gdprModal.style.display = 'none';
+      }
+      gdprAccept.onclick = () => {
+        localStorage.setItem('gdprAccepted', 'yes');
+        gdprModal.style.display = 'none';
+      };
+    });
+
+    // 极简英国郡县填字玩法（示例，实际可扩展）
+    const COUNTIES = [
+      { answer: 'KENT', clue: 'Garden of England (4)' },
+      { answer: 'ESSEX', clue: 'County east of London (5)' },
+      { answer: 'DEVON', clue: 'Famous for cream tea (5)' },
+      { answer: 'YORK', clue: 'Historic city in North Yorkshire (4)' }
+    ];
+    let current = 0;
+    let solved = false;
+    const board = document.getElementById('crossword-board');
+    const clues = document.getElementById('clues');
+    const startBtn = document.getElementById('start-btn');
+    const pauseBtn = document.getElementById('pause-btn');
+    const soundBtn = document.getElementById('sound-btn');
+    const message = document.getElementById('message');
+    const bellSound = document.getElementById('bell-sound');
+    let soundEnabled = true;
+    let paused = false;
+
+    function renderClue() {
+      clues.textContent = `Clue: ${COUNTIES[current].clue}`;
+    }
+    function renderBoard() {
+      board.innerHTML = '';
+      const answer = COUNTIES[current].answer;
+      for (let i = 0; i < answer.length; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 1;
+        input.className = 'w-10 h-10 border text-center text-xl font-bold rounded';
+        input.autocomplete = 'off';
+        input.setAttribute('aria-label', `Letter ${i+1}`);
+        board.appendChild(input);
+      }
+    }
+    function checkAnswer() {
+      const inputs = board.querySelectorAll('input');
+      const guess = Array.from(inputs).map(i => i.value.toUpperCase()).join('');
+      if (guess === COUNTIES[current].answer) {
+        message.textContent = 'Correct!';
+        if (soundEnabled) bellSound.play();
+        setTimeout(() => {
+          current++;
+          if (current >= COUNTIES.length) {
+            message.textContent = 'Congratulations! You completed the crossword!';
+            clues.textContent = '';
+            startBtn.style.display = '';
+            pauseBtn.style.display = 'none';
+            solved = true;
+          } else {
+            renderClue();
+            renderBoard();
+            message.textContent = '';
+          }
+        }, 1200);
+      } else {
+        message.textContent = 'Try again!';
+      }
+    }
+    board.addEventListener('keyup', e => {
+      if (e.key === 'Enter' && !solved && !paused) checkAnswer();
+    });
+    startBtn.onclick = () => {
+      current = 0;
+      solved = false;
+      paused = false;
+      startBtn.style.display = 'none';
+      pauseBtn.style.display = '';
+      renderClue();
+      renderBoard();
+      message.textContent = '';
+    };
+    pauseBtn.onclick = () => {
+      paused = !paused;
+      pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+      message.textContent = paused ? 'Paused' : '';
+    };
+    soundBtn.onclick = () => {
+      soundEnabled = !soundEnabled;
+      soundBtn.textContent = soundEnabled ? 'Sound: On' : 'Sound: Off';
+    };
+    // 初始状态
+    startBtn.style.display = '';
+    pauseBtn.style.display = 'none';
+    clues.textContent = '';
+    message.textContent = '';
+    board.innerHTML = '';
+  </script>
+</body>
+</html> 
